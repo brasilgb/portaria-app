@@ -13,8 +13,8 @@ export default function RootLayout() {
       <AuthProvider>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="naturovos" options={{ headerShown: false }} />
-          <Stack.Screen name="solar" options={{ headerShown: false }} />
+          <Stack.Screen name="naturovos/index" options={{ headerShown: false }} />
+          <Stack.Screen name="solar/index" options={{ headerShown: false }} />
         </Stack>
       </AuthProvider>
     </SafeAreaView>
