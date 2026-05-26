@@ -83,7 +83,7 @@ const NaturovosLayout = () => {
             presentation: 'card',
             animationTypeForReplace: 'push',
             animation: 'slide_from_right',
-            animationDuration: 5000
+            animationDuration: 320,
           }}
         />
       </View>

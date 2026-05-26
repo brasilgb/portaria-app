@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import {
-  Alert,
+  Image,
+  ImageSourcePropType,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -8,17 +9,22 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { router } from 'expo-router';
+import { Check, Eye, EyeOff } from 'lucide-react-native';
+import { z } from 'zod';
+
+import { useAuth } from './contexts/auth';
+import { getFieldErrors } from '@/utils/validation';
 
 type Company = {
   id: 'solar' | 'naturovos';
   name: string;
-  department: '1' | '5';
+  department: '1' | '26';
   description: string;
   route: '/solar' | '/naturovos';
   brandColor: string;
   softColor: string;
   foregroundColor: string;
+  logo: ImageSourcePropType;
 };
 
 const companies: Company[] = [
@@ -31,27 +37,57 @@ const companies: Company[] = [
     brandColor: '#1A9CD9',
     softColor: '#E8F6FC',
     foregroundColor: '#ffffff',
+    logo: require('../../assets/images/logo_lojas_solar.png'),
   },
   {
     id: 'naturovos',
     name: 'Naturovos',
-    department: '5',
-    description: 'Departamento 5',
+    department: '26',
+    description: 'Departamento 26',
     route: '/naturovos',
     brandColor: '#F9B233',
     softColor: '#FFF5DF',
     foregroundColor: '#1f2937',
+    logo: require('../../assets/images/logo_naturovos.png'),
   },
 ];
 
 const defaultBrandColor = '#0d3b85';
 const defaultSoftColor = '#e7eef8';
-const defaultForegroundColor = '#0f172a';
+const defaultForegroundColor = '#ffffff';
+const defaultLogo = require('../../assets/images/logo_grupo_solar.png');
+
+const loginSchema = z.object({
+  employeeNumber: z.string().trim().min(1, 'Informe o numero do funcionario.'),
+  password: z.string().trim().min(1, 'Informe a senha.'),
+  selectedCompany: z.custom<Company['id']>(
+    (value) => value === 'solar' || value === 'naturovos',
+    'Selecione Solar ou Naturovos.',
+  ),
+});
+
+type LoginField = 'employeeNumber' | 'password' | 'selectedCompany';
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) {
+    return null;
+  }
+
+  return (
+    <Text className="mt-2 text-sm font-semibold text-red-600">
+      {message}
+    </Text>
+  );
+}
 
 export default function HomeScreen() {
+  const { loading, signIn } = useAuth();
   const [employeeNumber, setEmployeeNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [keepSignedIn, setKeepSignedIn] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<Company['id'] | null>(null);
+  const [errors, setErrors] = useState<Partial<Record<LoginField, string>>>({});
 
   const company = useMemo(
     () => companies.find((item) => item.id === selectedCompany),
@@ -61,19 +97,29 @@ export default function HomeScreen() {
   const brandColor = company?.brandColor ?? defaultBrandColor;
   const softColor = company?.softColor ?? defaultSoftColor;
   const foregroundColor = company?.foregroundColor ?? defaultForegroundColor;
+  const logo = company?.logo ?? defaultLogo;
 
-  function handleSignIn() {
-    if (!employeeNumber.trim() || !password.trim()) {
-      Alert.alert('Dados obrigatorios', 'Informe o numero do funcionario e a senha.');
+  async function handleSignIn() {
+    const result = loginSchema.safeParse({
+      employeeNumber,
+      password,
+      selectedCompany,
+    });
+
+    if (!result.success) {
+      setErrors(getFieldErrors<LoginField>(result.error));
       return;
     }
 
-    if (!company) {
-      Alert.alert('Empresa obrigatoria', 'Selecione Solar ou Naturovos para continuar.');
-      return;
-    }
+    setErrors({});
+    const selected = companies.find((item) => item.id === result.data.selectedCompany)!;
 
-    router.push(company.route);
+    await signIn({
+      code: result.data.employeeNumber.trim(),
+      filial: selected.department,
+      keepSignedIn,
+      password: result.data.password,
+    });
   }
 
   return (
@@ -83,16 +129,13 @@ export default function HomeScreen() {
     >
       <View className="flex-1 justify-between px-6 py-8">
         <View className="pt-8">
-          <View
-            className="mb-8 h-14 w-14 items-center justify-center rounded-2xl"
-            style={{ backgroundColor: softColor }}
-          >
-            <Text
-              className="text-2xl font-black"
-              style={{ color: brandColor }}
-            >
-              P
-            </Text>
+          <View className="mb-8 h-20 w-48 items-start justify-center">
+            <Image
+              accessibilityIgnoresInvertColors
+              className="h-full w-full"
+              resizeMode="contain"
+              source={logo}
+            />
           </View>
 
           <Text
@@ -125,7 +168,10 @@ export default function HomeScreen() {
                   accessibilityRole="button"
                   accessibilityState={{ selected: isSelected }}
                   className="flex-1 rounded-lg border p-4"
-                  onPress={() => setSelectedCompany(item.id)}
+                  onPress={() => {
+                    setSelectedCompany(item.id);
+                    setErrors((current) => ({ ...current, selectedCompany: undefined }));
+                  }}
                   style={{
                     backgroundColor: isSelected ? item.brandColor : '#f8fafc',
                     borderColor: isSelected ? item.brandColor : '#e2e8f0',
@@ -147,6 +193,7 @@ export default function HomeScreen() {
               );
             })}
           </View>
+          <FieldError message={errors.selectedCompany} />
 
           <View className="mb-4">
             <Text className="mb-2 text-sm font-medium text-slate-700">
@@ -155,28 +202,73 @@ export default function HomeScreen() {
             <TextInput
               className="h-14 rounded-lg border border-slate-200 bg-slate-50 px-4 text-base text-slate-900"
               keyboardType="number-pad"
-              onChangeText={setEmployeeNumber}
+              onChangeText={(value) => {
+                setEmployeeNumber(value);
+                setErrors((current) => ({ ...current, employeeNumber: undefined }));
+              }}
               placeholder="Digite seu numero"
               placeholderTextColor="#64748b"
               returnKeyType="next"
               value={employeeNumber}
             />
+            <FieldError message={errors.employeeNumber} />
           </View>
 
           <View className="mb-5">
             <Text className="mb-2 text-sm font-medium text-slate-700">
               Senha
             </Text>
-            <TextInput
-              className="h-14 rounded-lg border border-slate-200 bg-slate-50 px-4 text-base text-slate-900"
-              onChangeText={setPassword}
-              placeholder="Digite sua senha"
-              placeholderTextColor="#64748b"
-              returnKeyType="done"
-              secureTextEntry
-              value={password}
-            />
+            <View className="h-14 flex-row items-center rounded-lg border border-slate-200 bg-slate-50">
+              <TextInput
+                className="h-full flex-1 px-4 pr-2 text-base text-slate-900"
+                onChangeText={(value) => {
+                  setPassword(value);
+                  setErrors((current) => ({ ...current, password: undefined }));
+                }}
+                placeholder="Digite sua senha"
+                placeholderTextColor="#64748b"
+                returnKeyType="done"
+                secureTextEntry={!showPassword}
+                value={password}
+              />
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={showPassword ? 'Ocultar senha' : 'Visualizar senha'}
+                accessibilityState={{ selected: showPassword }}
+                className="h-14 w-14 items-center justify-center"
+                onPress={() => setShowPassword((value) => !value)}
+              >
+                {showPassword ? (
+                  <EyeOff size={22} stroke="#475569" strokeWidth={2.3} />
+                ) : (
+                  <Eye size={22} stroke="#475569" strokeWidth={2.3} />
+                )}
+              </Pressable>
+            </View>
+            <FieldError message={errors.password} />
           </View>
+
+          <Pressable
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: keepSignedIn }}
+            className="mb-5 flex-row items-center gap-3"
+            onPress={() => setKeepSignedIn((value) => !value)}
+          >
+            <View
+              className="h-6 w-6 items-center justify-center rounded-md border"
+              style={{
+                backgroundColor: keepSignedIn ? brandColor : '#ffffff',
+                borderColor: keepSignedIn ? brandColor : '#cbd5e1',
+              }}
+            >
+              {keepSignedIn && (
+                <Check size={16} stroke={foregroundColor} strokeWidth={3} />
+              )}
+            </View>
+            <Text className="flex-1 text-sm font-semibold text-slate-700">
+              Continuar logado
+            </Text>
+          </Pressable>
 
           <View
             className="mb-5 rounded-lg border px-4 py-3"
@@ -198,15 +290,16 @@ export default function HomeScreen() {
 
           <Pressable
             accessibilityRole="button"
+            disabled={loading}
             className="h-14 items-center justify-center rounded-lg"
             onPress={handleSignIn}
-            style={{ backgroundColor: brandColor }}
+            style={{ backgroundColor: loading ? '#94a3b8' : brandColor }}
           >
             <Text
               className="text-base font-bold"
               style={{ color: foregroundColor }}
             >
-              Entrar
+              {loading ? 'Carregando...' : 'Entrar'}
             </Text>
           </Pressable>
         </View>
