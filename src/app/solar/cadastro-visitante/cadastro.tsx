@@ -75,9 +75,9 @@ function toBackendTime(value: Date) {
 
 const baseVisitorSchema = z.object({
   cpfMotorista: z.string().min(1, 'Volte e informe o CPF do motorista.'),
-  fornecedor: z.string().trim().min(1, 'Informe o fornecedor/prestador de servico.'),
+  fornecedor: z.string().trim().min(1, 'Informe o fornecedor/prestador de serviço.'),
   motorista: z.string().trim().min(1, 'Informe o visitante.'),
-  placa: z.string().trim().max(7, 'A placa deve ter no maximo 7 caracteres.'),
+  placa: z.string().trim().max(7, 'A placa deve ter no máximo 7 caracteres.'),
   destino: z.string().trim().min(1, 'Informe o motivo da visita.'),
   observacao: z.string(),
   procedencia: z.string(),
@@ -88,11 +88,11 @@ const solarVisitorSchema = baseVisitorSchema.extend({
   placa: z
     .string()
     .trim()
-    .min(1, 'Informe a placa do veiculo.')
-    .max(7, 'A placa deve ter no maximo 7 caracteres.'),
-  nota: z.string().trim().max(10, 'A nota fiscal deve ter no maximo 10 caracteres.'),
+    .min(1, 'Informe a placa do veículo.')
+    .max(7, 'A placa deve ter no máximo 7 caracteres.'),
+  nota: z.string().trim().max(10, 'A nota fiscal deve ter no máximo 10 caracteres.'),
   quantidade: z.string().trim().min(1, 'Informe a quantidade.'),
-  produto: z.string().trim().min(1, 'Informe o produto/servico.'),
+  produto: z.string().trim().min(1, 'Informe o produto/serviço.'),
   transportadora: z.string(),
 });
 
@@ -233,7 +233,7 @@ export default function CadastroVisitanteFormScreen() {
     } catch (error) {
       Alert.alert(
         'Erro ao cadastrar',
-        error instanceof Error ? error.message : 'Nao foi possivel cadastrar a visita.',
+        error instanceof Error ? error.message : 'Não foi possível cadastrar a visita.',
       );
     } finally {
       setSaving(false);
@@ -275,7 +275,7 @@ export default function CadastroVisitanteFormScreen() {
           </View>
           <Text className="mt-2 text-sm leading-5 text-slate-500">
             {visitor
-              ? 'Dados recuperados. Confira as informacoes antes de registrar.'
+              ? 'Dados recuperados. Confira as informações antes de registrar.'
               : 'Nenhum cadastro encontrado para este CPF. Preencha os dados para continuar.'}
           </Text>
 
@@ -311,7 +311,7 @@ export default function CadastroVisitanteFormScreen() {
 
             <View>
               <Text className="mb-2 text-sm font-semibold text-slate-700">
-                Fornecedor/prestador de servico
+                Fornecedor/prestador de serviço
               </Text>
               <TextInput
                 className="h-14 rounded-lg border border-slate-200 bg-slate-50 px-4 text-base text-slate-900"
@@ -347,7 +347,7 @@ export default function CadastroVisitanteFormScreen() {
 
             <View>
               <Text className="mb-2 text-sm font-semibold text-slate-700">
-                Placa do veiculo
+                Placa do veículo
               </Text>
               <TextInput
                 autoCapitalize="characters"
@@ -478,7 +478,7 @@ export default function CadastroVisitanteFormScreen() {
             {!isNaturovos && (
               <View>
                 <Text className="mb-2 text-sm font-semibold text-slate-700">
-                  Produto/servico
+                  Produto/serviço
                 </Text>
                 <TextInput
                   className="h-14 rounded-lg border border-slate-200 bg-slate-50 px-4 text-base text-slate-900"
@@ -486,7 +486,7 @@ export default function CadastroVisitanteFormScreen() {
                     setProduto(value);
                     clearError('produto');
                   }}
-                  placeholder="Produto ou servico"
+                  placeholder="Produto ou serviço"
                   placeholderTextColor="#64748b"
                   value={produto}
                 />
@@ -498,10 +498,10 @@ export default function CadastroVisitanteFormScreen() {
               <>
                 <View className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
                   <Text className="text-sm font-semibold leading-5 text-slate-700">
-                    Apresentou sintomas entericos ou respiratorios nos ultimos 15 dias?
+                    Apresentou sintomas entéricos ou respiratórios nos últimos 15 dias?
                   </Text>
                   <View className="mt-3 flex-row items-center gap-3">
-                    <Text className="text-sm font-bold text-slate-600">Nao</Text>
+                    <Text className="text-sm font-bold text-slate-600">Não</Text>
                     <Switch
                       onValueChange={setSintomas}
                       thumbColor={sintomas ? '#F9B233' : '#1A9CD9'}
@@ -514,10 +514,10 @@ export default function CadastroVisitanteFormScreen() {
 
                 <View className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
                   <Text className="text-sm font-semibold leading-5 text-slate-700">
-                    Visitou granjas ou frigorificos nas ultimas 72 horas?
+                    Visitou granjas ou frigoríficos nas últimas 72 horas?
                   </Text>
                   <View className="mt-3 flex-row items-center gap-3">
-                    <Text className="text-sm font-bold text-slate-600">Nao</Text>
+                    <Text className="text-sm font-bold text-slate-600">Não</Text>
                     <Switch
                       onValueChange={setGranjas}
                       thumbColor={granjas ? '#F9B233' : '#1A9CD9'}
@@ -530,7 +530,7 @@ export default function CadastroVisitanteFormScreen() {
 
                 <View>
                   <Text className="mb-2 text-sm font-semibold text-slate-700">
-                    Ultima procedencia
+                    Última procedência
                   </Text>
                   <TextInput
                     className="h-14 rounded-lg border border-slate-200 bg-slate-50 px-4 text-base text-slate-900"
@@ -549,7 +549,7 @@ export default function CadastroVisitanteFormScreen() {
 
             <View>
               <Text className="mb-2 text-sm font-semibold text-slate-700">
-                Observacao
+                Observação
               </Text>
               <TextInput
                 className="min-h-24 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-base text-slate-900"
@@ -558,7 +558,7 @@ export default function CadastroVisitanteFormScreen() {
                   setObservacao(value);
                   clearError('observacao');
                 }}
-                placeholder="Informacoes adicionais"
+                placeholder="Informações adicionais"
                 placeholderTextColor="#64748b"
                 textAlignVertical="top"
                 value={observacao}
@@ -580,7 +580,7 @@ export default function CadastroVisitanteFormScreen() {
                 className="text-base font-bold"
                 style={{ color: isNaturovos ? '#111827' : '#ffffff' }}
               >
-                {saving ? 'Salvando...' : isNaturovos ? 'Proximo' : 'Cadastrar visita'}
+                {saving ? 'Salvando...' : isNaturovos ? 'Próximo' : 'Cadastrar visita'}
               </Text>
             </Pressable>
           </View>

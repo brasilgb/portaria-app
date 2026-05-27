@@ -1228,6 +1228,11 @@
   resolved "https://registry.yarnpkg.com/@expo/schema-utils/-/schema-utils-55.0.4.tgz#2039daa04933da8f27957fd61b2b6d8d22d34bba"
   integrity sha512-65IdeeE8dAZR3n3J5Eq7LYiQ8BFGeEYCWPBCzycvafL7PkskbCyIclTQarRwf/HXFoRvezKCjaLwy/8v9Prk6g==
 
+"@expo/schema-utils@^56.0.0":
+  version "56.0.1"
+  resolved "https://registry.yarnpkg.com/@expo/schema-utils/-/schema-utils-56.0.1.tgz#44b993a64ed8dc0439e7571edf3d70b0f0b78bc4"
+  integrity sha512-CZ/+mYbQmWeOnkCGlWy9K+lFxbJSMFY7+TqBZcKzBSTU5Q7IGRvn/sOG3TdNjIdLPmbA8xe7R/c3UUQ28R9i9w==
+
 "@expo/sdk-runtime-versions@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@expo/sdk-runtime-versions/-/sdk-runtime-versions-1.0.0.tgz#d7ebd21b19f1c6b0395e50d78da4416941c57f7c"
@@ -3686,6 +3691,15 @@ expo-asset@~55.0.17:
   dependencies:
     "@expo/image-utils" "^0.8.14"
     expo-constants "~55.0.16"
+
+expo-build-properties@^56.0.15:
+  version "56.0.15"
+  resolved "https://registry.yarnpkg.com/expo-build-properties/-/expo-build-properties-56.0.15.tgz#089d81b0213528a8daed2498c187ca977c30e4a0"
+  integrity sha512-3OlfTnBE6BIFxchjXzb0OlgDcWw19fxhIzpIZqgcgzZUVjyn4gCrQuNcsfazVVddBypwkEzOVfwArPROIk4J7g==
+  dependencies:
+    "@expo/schema-utils" "^56.0.0"
+    resolve-from "^5.0.0"
+    semver "^7.6.0"
 
 expo-constants@~55.0.16:
   version "55.0.16"

@@ -79,7 +79,7 @@ export default function CadastroVisitanteScreen() {
         'Erro na busca',
         error instanceof Error
           ? error.message
-          : 'Nao foi possivel buscar os dados do motorista.',
+          : 'Não foi possível buscar os dados do motorista.',
       );
     } finally {
       setLoading(false);

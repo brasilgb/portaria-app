@@ -126,7 +126,7 @@ export default function VisitDetailsModal({
         'Erro ao carregar',
         error instanceof Error
           ? error.message
-          : 'Nao foi possivel carregar as informacoes da visita.',
+          : 'Não foi possível carregar as informações da visita.',
       );
       onClose();
     } finally {
@@ -189,7 +189,7 @@ export default function VisitDetailsModal({
           <View className="flex-row items-center justify-between gap-3">
             <View className="min-w-0 flex-1">
               <Text className="text-xl font-black text-slate-950">
-                Informacoes do visitante
+                Informações do visitante
               </Text>
               <Text className="mt-1 text-sm text-slate-500">
                 Dados completos da visita selecionada.
@@ -213,7 +213,7 @@ export default function VisitDetailsModal({
           <View className="items-center justify-center py-12">
             <ActivityIndicator color="#1A9CD9" />
             <Text className="mt-3 text-sm font-semibold text-slate-500">
-              Carregando informacoes...
+              Carregando informações...
             </Text>
           </View>
         ) : visit ? (
@@ -227,20 +227,20 @@ export default function VisitDetailsModal({
             <InfoRow label="Pedido" value={visit.pedido} />
             <InfoRow label="Data entrada" value={formatBackendDate(visit.dataEntrada)} />
             <InfoRow label="Hora entrada" value={formatBackendTime(visit.horaEntrada)} />
-            <InfoRow label="Data saida" value={formatBackendDate(visit.dataSaida)} />
-            <InfoRow label="Hora saida" value={formatBackendTime(visit.horaSaida)} />
+            <InfoRow label="Data saída" value={formatBackendDate(visit.dataSaida)} />
+            <InfoRow label="Hora saída" value={formatBackendTime(visit.horaSaida)} />
             <InfoRow label="Quantidade" value={visit.quantidade} />
             <InfoRow label="Destino" value={visit.destino} />
-            <InfoRow label="Produto/Servico" value={visit.produto} />
+            <InfoRow label="Produto/Serviço" value={visit.produto} />
             <InfoRow
-              label="Observacoes"
+              label="Observações"
               value={visit.observacoes ?? visit.observacao}
             />
           </View>
         ) : (
           <View className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-8">
             <Text className="text-center text-base font-bold text-slate-800">
-              Visita nao encontrada
+              Visita não encontrada
             </Text>
           </View>
         )}

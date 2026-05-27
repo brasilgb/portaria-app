@@ -33,8 +33,8 @@ const cargoActions = [
     color: '#f97316',
   },
   {
-    title: 'Saida',
-    description: 'Listar cargas aguardando saida.',
+    title: 'Saída',
+    description: 'Listar cargas aguardando saída.',
     route: '/naturovos/cargas/status/3',
     icon: ArrowLeft,
     color: '#1A9CD9',

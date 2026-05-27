@@ -52,7 +52,7 @@ function getStatusTitle(status: string) {
     case '2':
       return 'Entrada';
     case '3':
-      return 'Saida';
+      return 'Saída';
     default:
       return 'Cargas aguardando';
   }
@@ -65,7 +65,7 @@ function getActionText(status: string) {
     case '2':
       return 'Confirmar entrada';
     case '3':
-      return 'Confirmar saida';
+      return 'Confirmar saída';
     default:
       return 'Confirmar';
   }
@@ -180,7 +180,7 @@ function CargoDetailsModal({ cargo, onClose }: CargoDetailsModalProps) {
     >
       <View className="px-5">
         <View className="overflow-hidden rounded-lg border border-slate-200">
-          <InfoRow label="Codigo" value={cargo?.codigo} />
+          <InfoRow label="Código" value={cargo?.codigo} />
           <InfoRow label="Pager" value={cargo?.pager} />
           <InfoRow label="Placa" value={cargo?.placa} />
           <InfoRow label="Transportadora" value={cargo?.transportadora} />
@@ -387,7 +387,7 @@ export default function NaturovosCargaStatusScreen() {
           'Erro ao carregar',
           error instanceof Error
             ? error.message
-            : 'Nao foi possivel carregar as cargas.',
+            : 'Não foi possível carregar as cargas.',
         );
       } finally {
         setLoading(false);
@@ -417,7 +417,7 @@ export default function NaturovosCargaStatusScreen() {
     } catch (error) {
       Alert.alert(
         'Erro ao capturar',
-        error instanceof Error ? error.message : 'Nao foi possivel capturar o peso.',
+        error instanceof Error ? error.message : 'Não foi possível capturar o peso.',
       );
     } finally {
       setProcessingWeight(false);
@@ -456,7 +456,7 @@ export default function NaturovosCargaStatusScreen() {
         'Erro ao confirmar',
         error instanceof Error
           ? error.message
-          : 'Nao foi possivel alterar o status da carga.',
+          : 'Não foi possível alterar o status da carga.',
       );
     } finally {
       setProcessingWeight(false);
@@ -471,17 +471,17 @@ export default function NaturovosCargaStatusScreen() {
         <View className="flex-row items-start justify-between gap-3">
           <View className="min-w-0 flex-1">
             <Text className="text-base font-black text-slate-950" numberOfLines={1}>
-              {item.placa || 'Placa nao informada'}
+              {item.placa || 'Placa não informada'}
             </Text>
             <Text className="mt-1 text-sm font-semibold text-slate-500">
-              Codigo: {item.codigo || '-'} | Pager: {item.pager || '-'}
+              Código: {item.codigo || '-'} | Pager: {item.pager || '-'}
             </Text>
           </View>
 
           <View className="flex-row gap-2">
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Ver informacoes completas"
+              accessibilityLabel="Ver informações completas"
               className="h-10 w-10 items-center justify-center rounded-lg bg-white"
               onPress={() => setDetailsCargo(item)}
             >
@@ -501,7 +501,7 @@ export default function NaturovosCargaStatusScreen() {
 
         <View className="mt-4 gap-2 rounded-lg bg-white px-3 py-3">
           <Text className="text-sm font-bold text-slate-800" numberOfLines={1}>
-            {item.produto || 'Produto nao informado'}
+            {item.produto || 'Produto não informado'}
           </Text>
           <Text className="text-sm text-slate-500" numberOfLines={1}>
             Motorista: {item.motorista || '-'}

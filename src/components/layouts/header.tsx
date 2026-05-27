@@ -19,13 +19,13 @@ const visitorNavItems = [
     icon: UserPlus,
   },
   {
-    label: 'Historico',
+    label: 'Histórico',
     route: '/historico',
     activeRoutes: ['/historico'],
     icon: History,
   },
   {
-    label: 'Saidas pendentes',
+    label: 'Saídas pendentes',
     route: '/saidas-pendentes',
     activeRoutes: ['/saidas-pendentes'],
     icon: Clock,
@@ -42,7 +42,7 @@ function getHeaderSubtitle(pathname: string) {
   }
 
   if (pathname === '/naturovos/cargas/status/3') {
-    return 'Controle de cargas - Saida';
+    return 'Controle de cargas - Saída';
   }
 
   if (pathname.startsWith('/naturovos/cargas')) {

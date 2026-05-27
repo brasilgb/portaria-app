@@ -2,7 +2,7 @@
   "expo": {
     "name": "Portaria Gupo Solar",
     "slug": "portaria-grupo-solar",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "portaria-grupo-solar",
@@ -21,6 +21,14 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
@@ -43,6 +51,12 @@
     },
     "ios": {
       "bundleIdentifier": "com.andersonbrodrigues.portariaapp"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "374684db-c366-4ce4-bba8-c3d336c8e417"
+      }
     }
   }
 }

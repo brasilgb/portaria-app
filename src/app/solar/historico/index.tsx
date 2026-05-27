@@ -76,7 +76,7 @@ export default function HistoricoScreen() {
           'Erro ao carregar',
           error instanceof Error
             ? error.message
-            : 'Nao foi possivel carregar o historico de visitas.',
+            : 'Não foi possível carregar o histórico de visitas.',
         );
       } finally {
         setLoading(false);
@@ -98,7 +98,7 @@ export default function HistoricoScreen() {
   }
 
   async function handleReopenVisit(visit: VisitHistoryRecord) {
-    Alert.alert('Reverter saida', `Deseja reverter a saida de ${visit.nome}?`, [
+    Alert.alert('Reverter saída', `Deseja reverter a saída de ${visit.nome}?`, [
       { text: 'Cancelar', style: 'cancel' },
       {
         text: 'Reverter',
@@ -107,14 +107,14 @@ export default function HistoricoScreen() {
 
           try {
             await reopenVisitorVisit(visit.ident, user?.code);
-            Alert.alert('Saida revertida', 'Horario de saida revertido.');
+            Alert.alert('Saída revertida', 'Horário de saída revertido.');
             await loadHistory(false);
           } catch (error) {
             Alert.alert(
               'Erro ao reverter',
               error instanceof Error
                 ? error.message
-                : 'Nao foi possivel reverter a saida.',
+                : 'Não foi possível reverter a saída.',
             );
           } finally {
             setReopeningIdent(null);
@@ -135,14 +135,14 @@ export default function HistoricoScreen() {
               {visit.nome}
             </Text>
             <Text className="mt-1 text-sm font-semibold text-slate-500">
-              Placa: {visit.placa || 'Nao informada'}
+              Placa: {visit.placa || 'Não informada'}
             </Text>
           </View>
 
           <View className="flex-row gap-2">
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Ver informacoes completas"
+              accessibilityLabel="Ver informações completas"
               className="h-10 w-10 items-center justify-center rounded-lg bg-white"
               onPress={() => setDetailsIdent(visit.ident)}
             >
@@ -151,7 +151,7 @@ export default function HistoricoScreen() {
 
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Reverter saida"
+              accessibilityLabel="Reverter saída"
               className="h-10 w-10 items-center justify-center rounded-lg bg-white"
               disabled={isReopening}
               onPress={() => handleReopenVisit(visit)}
@@ -177,7 +177,7 @@ export default function HistoricoScreen() {
           </View>
 
           <View className="flex-1 rounded-lg bg-white px-3 py-2">
-            <Text className="text-xs font-bold uppercase text-slate-400">Saida</Text>
+            <Text className="text-xs font-bold uppercase text-slate-400">Saída</Text>
             <Text className="mt-1 text-sm font-bold text-slate-800">
               {formatBackendDate(visit.dataSaida)}
             </Text>
@@ -196,7 +196,7 @@ export default function HistoricoScreen() {
         <View className="items-center justify-center py-12">
           <ActivityIndicator color="#1A9CD9" />
           <Text className="mt-3 text-sm font-semibold text-slate-500">
-            Carregando historico...
+            Carregando histórico...
           </Text>
         </View>
       );
@@ -221,10 +221,10 @@ export default function HistoricoScreen() {
           <View className="flex-row items-center justify-between gap-3">
             <View className="min-w-0 flex-1">
               <Text className="text-xl font-black text-slate-950">
-                Historico de visitas
+                Histórico de visitas
               </Text>
               <Text className="mt-1 text-sm text-slate-500">
-                Visitantes com saida registrada na data selecionada.
+                Visitantes com saída registrada na data selecionada.
               </Text>
             </View>
 

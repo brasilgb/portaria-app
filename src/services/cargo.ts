@@ -44,7 +44,7 @@ export async function listCarriers(filter = '') {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel carregar as transportadoras.');
+    throw new Error('Não foi possível carregar as transportadoras.');
   }
 
   const veiculos = response.data?.veiculos;
@@ -73,13 +73,13 @@ export async function saveCargoArrival(values: SaveCargoArrivalValues) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel registrar a chegada da carga.');
+    throw new Error('Não foi possível registrar a chegada da carga.');
   }
 
   const genericResponse = response.data?.genericResponse;
   if (genericResponse?.success === false) {
     throw new Error(
-      genericResponse?.message ?? 'Nao foi possivel registrar a chegada da carga.',
+      genericResponse?.message ?? 'Não foi possível registrar a chegada da carga.',
     );
   }
 
@@ -94,7 +94,7 @@ export async function listCargoStatus(status: string, filial?: string) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel carregar as cargas.');
+    throw new Error('Não foi possível carregar as cargas.');
   }
 
   const veiculos = response.data?.veiculos;
@@ -112,7 +112,7 @@ export async function captureCargoWeight(filial?: string) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel capturar o peso da carga.');
+    throw new Error('Não foi possível capturar o peso da carga.');
   }
 
   return String(response.data?.peso?.peso ?? '');
@@ -128,13 +128,13 @@ export async function updateCargoStatus(values: UpdateCargoStatusValues) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel alterar o status da carga.');
+    throw new Error('Não foi possível alterar o status da carga.');
   }
 
   const genericResponse = response.data?.genericResponse;
   if (genericResponse?.success === false) {
     throw new Error(
-      genericResponse?.message ?? 'Nao foi possivel alterar o status da carga.',
+      genericResponse?.message ?? 'Não foi possível alterar o status da carga.',
     );
   }
 

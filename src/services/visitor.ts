@@ -55,7 +55,7 @@ export async function findVisitorByDriverCpf(cpfMotorista: string) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel buscar os dados do visitante.');
+    throw new Error('Não foi possível buscar os dados do visitante.');
   }
 
   return pickVisitorRecord(response.data);
@@ -103,12 +103,12 @@ export async function saveVisitorVisit(values: SaveVisitorVisitValues) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel gravar a visita.');
+    throw new Error('Não foi possível gravar a visita.');
   }
 
   const success = Boolean(response.data?.visita?.success);
   if (!success) {
-    throw new Error(response.data?.visita?.message ?? 'Nao foi possivel gravar a visita.');
+    throw new Error(response.data?.visita?.message ?? 'Não foi possível gravar a visita.');
   }
 
   return response.data.visita;
@@ -146,12 +146,12 @@ export async function getVisitorVisitDetails(ident: number | string) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel carregar as informacoes da visita.');
+    throw new Error('Não foi possível carregar as informações da visita.');
   }
 
   const visit = response.data?.visita;
   if (visit?.success === false) {
-    throw new Error(visit?.message ?? 'Nao foi possivel carregar a visita.');
+    throw new Error(visit?.message ?? 'Não foi possível carregar a visita.');
   }
 
   return (visit?.data ?? null) as VisitDetailsRecord | null;
@@ -165,7 +165,7 @@ export async function listVisitorHistory(data: string, filial?: string) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel carregar o historico de visitas.');
+    throw new Error('Não foi possível carregar o histórico de visitas.');
   }
 
   const visit = response.data?.visita;
@@ -184,7 +184,7 @@ export async function listPendingVisitorExits(data: string, filial?: string) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel carregar as saidas pendentes.');
+    throw new Error('Não foi possível carregar as saídas pendentes.');
   }
 
   const visit = response.data?.visita;
@@ -210,12 +210,12 @@ export async function registerVisitorExit(
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel registrar a saida.');
+    throw new Error('Não foi possível registrar a saída.');
   }
 
   const visit = response.data?.visita;
   if (visit?.success === false) {
-    throw new Error(visit?.message ?? 'Nao foi possivel registrar a saida.');
+    throw new Error(visit?.message ?? 'Não foi possível registrar a saída.');
   }
 
   return visit;
@@ -231,7 +231,7 @@ export async function reopenVisitorVisit(ident: number, userCode?: string) {
   });
 
   if (response.status !== 200) {
-    throw new Error('Nao foi possivel reverter a saida.');
+    throw new Error('Não foi possível reverter a saída.');
   }
 
   return response.data;

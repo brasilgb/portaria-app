@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { Check, Eye, EyeOff } from 'lucide-react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { z } from 'zod';
 
 import { useAuth } from './contexts/auth';
@@ -58,7 +59,7 @@ const defaultForegroundColor = '#ffffff';
 const defaultLogo = require('../../assets/images/logo_grupo_solar.png');
 
 const loginSchema = z.object({
-  employeeNumber: z.string().trim().min(1, 'Informe o numero do funcionario.'),
+  employeeNumber: z.string().trim().min(1, 'Informe o número do funcionário.'),
   password: z.string().trim().min(1, 'Informe a senha.'),
   selectedCompany: z.custom<Company['id']>(
     (value) => value === 'solar' || value === 'naturovos',
@@ -82,6 +83,7 @@ function FieldError({ message }: { message?: string }) {
 
 export default function HomeScreen() {
   const { loading, signIn } = useAuth();
+  const insets = useSafeAreaInsets();
   const [employeeNumber, setEmployeeNumber] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -127,7 +129,10 @@ export default function HomeScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       className="flex-1 bg-slate-50"
     >
-      <View className="flex-1 justify-between px-6 py-8">
+      <View
+        className="flex-1 justify-between px-6 pt-8"
+        style={{ paddingBottom: Math.max(insets.bottom, 16) + 16 }}
+      >
         <View className="pt-8">
           <View className="mb-8 h-20 w-48 items-start justify-center">
             <Image
@@ -148,7 +153,7 @@ export default function HomeScreen() {
             Acesse sua conta
           </Text>
           <Text className="mt-3 text-base leading-6 text-slate-500">
-            Entre com seu numero de funcionario, senha e selecione a unidade de
+            Entre com seu número de funcionário, senha e selecione a unidade de
             atendimento.
           </Text>
         </View>
@@ -197,7 +202,7 @@ export default function HomeScreen() {
 
           <View className="mb-4">
             <Text className="mb-2 text-sm font-medium text-slate-700">
-              Numero do funcionario
+              Número do funcionário
             </Text>
             <TextInput
               className="h-14 rounded-lg border border-slate-200 bg-slate-50 px-4 text-base text-slate-900"
@@ -206,7 +211,7 @@ export default function HomeScreen() {
                 setEmployeeNumber(value);
                 setErrors((current) => ({ ...current, employeeNumber: undefined }));
               }}
-              placeholder="Digite seu numero"
+              placeholder="Digite seu número"
               placeholderTextColor="#64748b"
               returnKeyType="next"
               value={employeeNumber}
@@ -304,9 +309,14 @@ export default function HomeScreen() {
           </Pressable>
         </View>
 
-        <Text className="text-center text-xs text-slate-400">
-          Acesso exclusivo para funcionarios autorizados.
-        </Text>
+        <View>
+          <Text className="text-center text-xs text-slate-400">
+            Acesso exclusivo para funcionários autorizados.
+          </Text>
+          <Text className="mt-1 text-center text-xs font-semibold text-slate-400">
+            v2.0.0
+          </Text>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );

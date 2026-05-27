@@ -50,7 +50,7 @@ const cargoSchema = z.object({
     .string()
     .trim()
     .min(1, 'Informe a placa.')
-    .max(7, 'A placa deve ter no maximo 7 caracteres.'),
+    .max(7, 'A placa deve ter no máximo 7 caracteres.'),
   motorista: z.string().trim().min(1, 'Informe o nome do motorista.'),
   produto: z.string().trim().min(1, 'Informe o tipo de mercadoria.'),
   pager: z.string(),
@@ -135,7 +135,7 @@ export default function NaturovosCadastroCargaScreen() {
           'Erro ao carregar',
           error instanceof Error
             ? error.message
-            : 'Nao foi possivel carregar as transportadoras.',
+            : 'Não foi possível carregar as transportadoras.',
         );
       } finally {
         setLoadingCarriers(false);
@@ -206,7 +206,7 @@ export default function NaturovosCadastroCargaScreen() {
         'Erro ao registrar',
         error instanceof Error
           ? error.message
-          : 'Nao foi possivel registrar a chegada da carga.',
+          : 'Não foi possível registrar a chegada da carga.',
       );
     } finally {
       setSaving(false);

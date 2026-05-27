@@ -98,7 +98,7 @@ export default function SaidasPendentesScreen() {
           'Erro ao carregar',
           error instanceof Error
             ? error.message
-            : 'Nao foi possivel carregar as saidas pendentes.',
+            : 'Não foi possível carregar as saídas pendentes.',
         );
       } finally {
         setLoading(false);
@@ -141,8 +141,8 @@ export default function SaidasPendentesScreen() {
     const selectedTime = isSelected ? exitTime : new Date();
 
     Alert.alert(
-      'Registrar saida',
-      `Registrar saida de ${visit.nome} em ${formatDate(selectedDate)} as ${formatTime(
+      'Registrar saída',
+      `Registrar saída de ${visit.nome} em ${formatDate(selectedDate)} às ${formatTime(
         selectedTime,
       )}?`,
       [
@@ -159,14 +159,14 @@ export default function SaidasPendentesScreen() {
                 toBackendTime(selectedTime),
                 user?.code,
               );
-              Alert.alert('Saida registrada', 'Horario de saida registrado.');
+              Alert.alert('Saída registrada', 'Horário de saída registrado.');
               await loadPendingExits(false);
             } catch (error) {
               Alert.alert(
                 'Erro ao registrar',
                 error instanceof Error
                   ? error.message
-                  : 'Nao foi possivel registrar a saida.',
+                  : 'Não foi possível registrar a saída.',
               );
             } finally {
               setRegisteringIdent(null);
@@ -189,14 +189,14 @@ export default function SaidasPendentesScreen() {
               {visit.nome}
             </Text>
             <Text className="mt-1 text-sm font-semibold text-slate-500">
-              Placa: {visit.placa || 'Nao informada'}
+              Placa: {visit.placa || 'Não informada'}
             </Text>
           </Pressable>
 
           <View className="flex-row gap-2">
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Ver informacoes completas"
+              accessibilityLabel="Ver informações completas"
               className="h-10 w-10 items-center justify-center rounded-lg bg-white"
               onPress={() => setDetailsIdent(visit.ident)}
             >
@@ -205,7 +205,7 @@ export default function SaidasPendentesScreen() {
 
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Registrar saida"
+              accessibilityLabel="Registrar saída"
               className="h-10 w-10 items-center justify-center rounded-lg bg-white"
               disabled={isRegistering}
               onPress={() => handleRegisterExit(visit)}
@@ -231,7 +231,7 @@ export default function SaidasPendentesScreen() {
           </View>
 
           <View className="flex-1 rounded-lg bg-white px-3 py-2">
-            <Text className="text-xs font-bold uppercase text-slate-400">Saida</Text>
+            <Text className="text-xs font-bold uppercase text-slate-400">Saída</Text>
             <View className="mt-2 flex-row gap-2">
               <Pressable
                 accessibilityRole="button"
@@ -273,7 +273,7 @@ export default function SaidasPendentesScreen() {
         <View className="items-center justify-center py-12">
           <ActivityIndicator color="#1A9CD9" />
           <Text className="mt-3 text-sm font-semibold text-slate-500">
-            Carregando saidas pendentes...
+            Carregando saídas pendentes...
           </Text>
         </View>
       );
@@ -282,7 +282,7 @@ export default function SaidasPendentesScreen() {
     return (
       <View className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-8">
         <Text className="text-center text-base font-bold text-slate-800">
-          Nenhuma saida pendente
+          Nenhuma saída pendente
         </Text>
         <Text className="mt-2 text-center text-sm text-slate-500">
           Altere a data ou puxe para atualizar.
@@ -298,10 +298,10 @@ export default function SaidasPendentesScreen() {
           <View className="flex-row items-center justify-between gap-3">
             <View className="min-w-0 flex-1">
               <Text className="text-xl font-black text-slate-950">
-                Saidas pendentes
+                Saídas pendentes
               </Text>
               <Text className="mt-1 text-sm text-slate-500">
-                Visitantes ainda sem horario de saida registrado.
+                Visitantes ainda sem horário de saída registrado.
               </Text>
             </View>
 
