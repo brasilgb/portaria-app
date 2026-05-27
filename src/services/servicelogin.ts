@@ -10,8 +10,8 @@ const servicelogin = axios.create({
 });
 
 servicelogin.interceptors.request.use(async (request) => {
-  request.baseURL = `https://services.gruposolar.com.br:8086/servicesgruposolar/servlet/isCobol`;
-  BASE_URL = `https://services.gruposolar.com.br:8086/servicesgruposolar/servlet/isCobol`;
+  request.baseURL = `http://172.16.1.46:8080/servicesgruposolar/servlet/isCobol`;
+  BASE_URL = `http://172.16.1.46:8080/servicesgruposolar/servlet/isCobol`;
   request.baseURL = request.baseURL;
   BASE_URL = BASE_URL;
 
